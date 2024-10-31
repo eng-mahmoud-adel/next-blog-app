@@ -11,7 +11,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ id: number }> }) {
-    const { id } = await params
+    const { id } = await params;
     const blog = await fetchBlogById(id);
 
     return {
@@ -20,8 +20,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: numbe
     }
 }
 
-const BlogDetailsPage = async ({ params }: { params: { id: number } }) => {
-    const blog = await fetchBlogById(params.id);
+const BlogDetailsPage = async ({ params }: { params: Promise<{ id: number }> }) => {
+    const { id } = await params;
+    const blog = await fetchBlogById(id);
 
     return (
         <div className="container mx-auto p-4">
