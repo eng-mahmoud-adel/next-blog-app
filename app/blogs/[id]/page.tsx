@@ -10,8 +10,9 @@ export async function generateStaticParams() {
     }))
 }
 
-export async function generateMetadata({ params }: { params: { id: number } }) {
-    const blog = await fetchBlogById(params.id);
+export async function generateMetadata({ params }: { params: Promise<{ id: number }> }) {
+    const { id } = await params
+    const blog = await fetchBlogById(id);
 
     return {
         title: blog.slug,
